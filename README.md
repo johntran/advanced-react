@@ -6,8 +6,8 @@ Before the training make sure you can run this repository.
 
 Install [git](http://git-scm.com/downloads) and [node.js](https://nodejs.org/), then:
 
-    $ git clone https://github.com/ReactTraining/react-training.git`
-    $ cd react-training
+    $ git clone https://github.com/ReactTraining/react-training-advanced.git
+    $ cd react-training-advanced
     $ npm install
     $ npm start
 
