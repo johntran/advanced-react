@@ -118,7 +118,7 @@ class App extends React.Component {
         <h1>Heads up Eggman, here comes <code>&lt;Tails&gt;</code>s!</h1>
         <div style={{ height: 400, overflowY: 'scroll', border: '1px solid' }}>
         {/* <PinnedToBottom style={{ height: 400, border: '1px solid' }}> */}
-          <Tail lines={this.state.lines} n={50}>
+          <Tail lines={this.state.lines} n={5}>
             {(truncatedLines) => (
               <ul>
                 {truncatedLines.map((line, index) => (
