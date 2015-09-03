@@ -40,6 +40,7 @@
     "object-assign": "^2.0.0",
     "purecss": "^0.6.0",
     "react": "0.14.0-beta3",
+    "react-addons-perf": "0.14.0-beta3",
     "react-dom": "0.14.0-beta3",
     "react-motion": "^0.2.2",
     "react-router": "git://github.com/rackt/react-router#training",
