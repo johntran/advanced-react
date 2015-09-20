@@ -1,5 +1,5 @@
 {
-  "name": "react-training",
+  "name": "advanced-react",
   "version": "1.0.0",
   "description": "Training material for http://reactjs-training.com",
   "main": "index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ReactTraining/react-training.git"
+    "url": "https://github.com/ReactTraining/advanced-react.git"
   },
   "authors": [
     "Ryan Florence",
@@ -44,7 +44,7 @@
     "react-addons-perf": "0.14.0-beta3",
     "react-dom": "0.14.0-beta3",
     "react-motion": "^0.2.2",
-    "react-router": "git://github.com/rackt/react-router#training",
+    "react-router": "1.0.0-rc1",
     "react-tween-state": "0.0.5",
     "sort-by": "^1.1.0",
     "style-loader": "^0.12.3",
