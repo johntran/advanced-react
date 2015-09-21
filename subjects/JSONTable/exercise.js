@@ -5,7 +5,6 @@
 // - render the content of the th's from the field names (hint: use
 //   the field names from the first record)
 // - render each result as a row in tbody
-
 import 'purecss/build/pure.css'
 import React from 'react'
 import { render } from 'react-dom'
@@ -31,4 +30,4 @@ class App extends React.Component {
   }
 }
 
-render(<App/>, document.getElementById('app'));
+render(<App/>, document.getElementById('app'))
