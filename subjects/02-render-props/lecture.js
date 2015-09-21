@@ -8,38 +8,37 @@ import ScrollBottomNotifier from './lib/ScrollBottomNotifier'
 // Here's a fun app, check out ScrollBottomNotifier, making these kinds of tasks
 // declarative is fantastic and makes code reuse really straightforward.
 
-var App = React.createClass({
-
-  getInitialState () {
+const App = React.createClass({
+  getInitialState() {
     return {
       repos: [],
       links: {},
       fetching: false
-    };
+    }
   },
 
-  fetch (url) {
-    var defaultUrl = `https://api.github.com/search/repositories?q=react&sort=stars`;
-    this.setState({ fetching: true });
+  fetch(url) {
+    const defaultUrl = 'https://api.github.com/search/repositories?q=react&sort=stars'
+    this.setState({ fetching: true })
     searchGithubRepos(url || defaultUrl, (err, repos, links) => {
       this.setState({
         repos: this.state.repos.concat(repos),
         links,
         fetching: false
-      });
-    });
+      })
+    })
   },
 
-  componentDidMount () {
+  componentDidMount() {
     this.fetch()
   },
 
-  fetchNextPage () {
-    this.fetch(this.state.links.next);
+  fetchNextPage() {
+    this.fetch(this.state.links.next)
   },
 
-  render () {
-    var canFetch = !this.state.fetching && this.state.links.next;
+  render() {
+    const canFetch = !this.state.fetching && this.state.links.next
     return (
       <ScrollBottomNotifier
         style={styles.repos}
@@ -56,11 +55,11 @@ var App = React.createClass({
           ))}
         </ul>
       </ScrollBottomNotifier>
-    );
+    )
   }
-});
+})
 
-render(<App/>, document.getElementById('app'));
+render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // Making something like Scrolling a component makes a lot of sense, but what
@@ -69,46 +68,46 @@ render(<App/>, document.getElementById('app'));
 // First we'll just create a new component and move a bunch of stuff from
 // App to GithubSearch.
 
-//var GithubSearch = React.createClass({
+//const GithubSearch = React.createClass({
 
-  //getInitialState () {
+  //getInitialState() {
     //return {
       //repos: [],
       //links: {},
       //fetching: false
-    //};
+    //}
   //},
 
-  //fetch (url) {
-    //this.setState({ fetching: true });
+  //fetch(url) {
+    //this.setState({ fetching: true })
     //searchGithubRepos(this.props.url || defaultUrl, (err, repos, links) => {
       //this.setState({
         //repos: this.state.repos.concat(repos),
         //links,
         //fetching: false
-      //});
-    //});
+      //})
+    //})
   //},
 
-  //componentDidMount () {
+  //componentDidMount() {
     //this.fetch()
   //},
 
-  //fetchNextPage () {
-    //this.fetch(this.state.links.next);
+  //fetchNextPage() {
+    //this.fetch(this.state.links.next)
   //},
 
-  //render () {
-    //return <pre>{JSON.stringify(this.state, null, 2)}</pre>;
+  //render() {
+    //return <pre>{JSON.stringify(this.state, null, 2)}</pre>
   //}
 
-//});
+//})
 
-//var App = React.createClass({
+//const App = React.createClass({
 
-  //render () {
-    //var url = `https://api.github.com/search/repositories?q=react&sort=stars`;
-    //var canFetch = !this.state.fetching && this.state.links.next;
+  //render() {
+    //const url = 'https://api.github.com/search/repositories?q=react&sort=stars'
+    //const canFetch = !this.state.fetching && this.state.links.next
     //return (
       //<div>
         //<GithubSearch url={url}/>
@@ -129,11 +128,11 @@ render(<App/>, document.getElementById('app'));
           //</ul>
         //</ScrollBottomNotifier>
       //</div>
-    //);
+    //)
   //}
-//});
+//})
 
-//render(<App/>, document.getElementById('app'));
+//render(<App/>, document.getElementById('app'))
 
 ////////////////////////////////////////////////////////////////////////////////
 // So now we've got the thing kinda working, but not rendering, to get data from
@@ -141,56 +140,56 @@ render(<App/>, document.getElementById('app'));
 // a component to another? We send a callback, turns out we use that callback
 // for rendering too
 
-//var GithubSearch = React.createClass({
+//const GithubSearch = React.createClass({
 
-  //getInitialState () {
+  //getInitialState() {
     //return {
       //repos: [],
       //links: {},
       //fetching: false
-    //};
+    //}
   //},
 
-  //fetch (url) {
-    //this.setState({ fetching: true });
+  //fetch(url) {
+    //this.setState({ fetching: true })
     //searchGithubRepos(this.props.url, (err, repos, links) => {
       //this.setState({
         //repos: this.state.repos.concat(repos),
         //links,
         //fetching: false
-      //});
-    //});
+      //})
+    //})
   //},
 
-  //componentDidMount () {
-    //this.fetch();
+  //componentDidMount() {
+    //this.fetch()
   //},
 
-  //componentDidUpdate (prevProps) {
+  //componentDidUpdate(prevProps) {
     //if (prevProps.url !== this.props.url)
-      //this.fetch();
+      //this.fetch()
   //},
 
-  //render () {
-    //return this.props.children(this.state);
+  //render() {
+    //return this.props.children(this.state)
   //}
 
-//});
+//})
 
-//var App = React.createClass({
+//const App = React.createClass({
 
-  //getInitialState () {
+  //getInitialState() {
     //return {
       //url: 'https://api.github.com/search/repositories?q=react&sort=stars'
-    //};
+    //}
   //},
 
-  //fetchNextPage (search) {
+  //fetchNextPage(search) {
     //if (!search.fetching && search.links.next)
-      //this.setState({ url: search.links.next});
+      //this.setState({ url: search.links.next})
   //},
 
-  //render () {
+  //render() {
     //return (
       //<div>
         //<GithubSearch url={this.state.url}>
@@ -213,9 +212,8 @@ render(<App/>, document.getElementById('app'));
           //)}
         //</GithubSearch>
       //</div>
-    //);
+    //)
   //}
-//});
+//})
 
-//render(<App/>, document.getElementById('app'));
-
+//render(<App/>, document.getElementById('app'))
