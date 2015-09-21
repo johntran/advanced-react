@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Requirements
 //
-// - fetch the src with `getJSON`
+// - fetch the src with getJSON((error, payload) => {})
 // - render the content of the th's from the field names (hint: use
 //   the field names from the first record)
-// - render each result as a row in tbody
+// - render each result as a row in <tbody>
 import 'purecss/build/pure.css'
 import React from 'react'
 import { render } from 'react-dom'
