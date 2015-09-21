@@ -69,7 +69,6 @@ render(<App/>, document.getElementById('app'))
 // App to GithubSearch.
 
 //const GithubSearch = React.createClass({
-
   //getInitialState() {
     //return {
       //repos: [],
@@ -100,11 +99,9 @@ render(<App/>, document.getElementById('app'))
   //render() {
     //return <pre>{JSON.stringify(this.state, null, 2)}</pre>
   //}
-
 //})
 
 //const App = React.createClass({
-
   //render() {
     //const url = 'https://api.github.com/search/repositories?q=react&sort=stars'
     //const canFetch = !this.state.fetching && this.state.links.next
@@ -141,7 +138,6 @@ render(<App/>, document.getElementById('app'))
 // for rendering too
 
 //const GithubSearch = React.createClass({
-
   //getInitialState() {
     //return {
       //repos: [],
@@ -173,11 +169,9 @@ render(<App/>, document.getElementById('app'))
   //render() {
     //return this.props.children(this.state)
   //}
-
 //})
 
 //const App = React.createClass({
-
   //getInitialState() {
     //return {
       //url: 'https://api.github.com/search/repositories?q=react&sort=stars'
