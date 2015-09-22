@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
 import { render } from 'react-dom'
+import './styles.css'
 let { func, any } = PropTypes
 
 ////////////////////////////////////////////////////////////////////////////////
 // Requirements
 
-let styles = {}
 
 class Select extends React.Component {
   constructor (props, context) {
@@ -65,10 +65,10 @@ class Select extends React.Component {
 
   render () {
     return (
-      <div style={styles.select} onClick={() => this.toggle()}>
-        <div style={styles.label}>{this.getLabel()} <span style={styles.arrow}>▾</span></div>
+      <div className="select" onClick={() => this.toggle()}>
+        <div className="label">{this.getLabel()} <span className="arrow">▾</span></div>
         {this.state.showChildren && (
-          <div style={styles.options}>
+          <div className="options">
             {this.renderChildren()}
           </div>
         )}
@@ -84,11 +84,6 @@ Select.propTypes = {
 };
 
 class Option extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-    this.state = { hovering: false }
-  }
-
   handleClick () {
     this.props.onSelect(this.props.value)
   }
@@ -96,44 +91,11 @@ class Option extends React.Component {
   render () {
     return (
       <div
-        style={this.state.hovering ? styles.optionHover : styles.option}
+        className="option"
         onClick={() => this.handleClick()}
-        onMouseEnter={() => this.setState({hovering: true})}
-        onMouseLeave={() => this.setState({hovering: false})}
       >{this.props.children}</div>
     )
   }
-}
-
-styles.select = {
-  border: '1px solid #ccc',
-  display: 'inline-block',
-  margin: '4px',
-  cursor: 'pointer',
-}
-
-styles.label = {
-  padding: '4px'
-}
-
-styles.arrow = {
-  float: 'right',
-  paddingLeft: 4
-}
-
-styles.option = {
-  padding: '4px'
-}
-
-styles.optionHover = {
-  background: '#eee',
-  ...styles.option
-}
-
-styles.options = {
-  position: 'absolute',
-  background: '#fff',
-  border: '1px solid #ccc'
 }
 
 class App extends React.Component {
@@ -176,5 +138,4 @@ class App extends React.Component {
 }
 
 render(<App/>, document.getElementById('app'));
-
 

@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import { render } from 'react-dom'
+import './styles.css'
 let { func, any } = PropTypes
-
-let styles = {}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Requirements
@@ -29,39 +28,6 @@ class Option extends React.Component {
       <div/>
     )
   }
-}
-
-// You can use these styles to not mess around w/ css if you'd like
-
-styles.select = {
-  border: '1px solid #ccc',
-  display: 'inline-block',
-  margin: '4px',
-  cursor: 'pointer',
-}
-
-styles.label = {
-  padding: '4px'
-}
-
-styles.arrow = {
-  float: 'right',
-  paddingLeft: 4
-}
-
-styles.options = {
-  position: 'absolute',
-  background: '#fff',
-  border: '1px solid #ccc'
-}
-
-styles.option = {
-  padding: '4px'
-}
-
-styles.optionHover = {
-  background: '#eee',
-  ...styles.option
 }
 
 class App extends React.Component {
