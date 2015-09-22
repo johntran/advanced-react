@@ -1,40 +1,53 @@
 import React, { PropTypes } from 'react';
 import { render } from 'react-dom'
+import CSSTransitionGroup from 'react-addons-css-transition-group'
+import './styles.css'
 
 ////////////////////////////////////////////////////////////////////////////////
 // Requirements
 //
 
+let { string, func, number, bool } = React.PropTypes
+
 class Slider extends React.Component {
+  static propTypes = {
+    initialIndex: number.isRequired,
+    autoplay: bool,
+    onTogglePlay: func,
+    duration: number
+  }
+
+  static defaultProps = {
+    autoplay: false,
+    duration: 5000,
+    initialIndex: 0
+  }
+
   render () {
     return (
-      <div></div>
+      <div {...this.props}/>
     )
   }
 }
 
-Slider.propTypes = { };
-
 class SliderStage extends React.Component {
   render () {
     return (
-      <div></div>
+      <div {...this.props}/>
     )
   }
 }
 
 class Slide extends React.Component {
   render () {
-    return (
-      <div></div>
-    )
+    return <img {...this.props}/>
   }
 }
 
 class SliderControls extends React.Component {
   render () {
     return (
-      <div></div>
+      <div {...this.props}/>
     )
   }
 }
@@ -42,7 +55,7 @@ class SliderControls extends React.Component {
 class SliderPrevious extends React.Component {
   render () {
     return (
-      <div></div>
+      <button {...this.props}/>
     )
   }
 }
@@ -50,15 +63,19 @@ class SliderPrevious extends React.Component {
 class SliderPlayPause extends React.Component {
   render () {
     return (
-      <div></div>
+      <button {...this.props}/>
     )
   }
 }
 
 class SliderNext extends React.Component {
+  static contextTypes = {
+    next: func.isRequired
+  }
+
   render () {
     return (
-      <div></div>
+      <button {...this.props}/>
     )
   }
 }
@@ -68,7 +85,7 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      selectValue: 'dosa'
+      isPlaying: true
     };
   }
 
@@ -78,21 +95,22 @@ class App extends React.Component {
         <h1>Slider</h1>
 
         <Slider
-          initialSlide="./slides/hamburger.jpg"
-          duration={5000}
-          autoplay
+          initialIndex={0}
+          duration={2000}
+          onTogglePlay={(isPlaying) => this.setState({ isPlaying })}
+          autoplay={this.state.isPlaying}
         >
-          <SliderStage>
-            <Slide src="./slides/hamburger.jpg"/>
-            <Slide src="./slides/chicken-nuggets.jpg"/>
-            <Slide src="./slides/mcmuffin.jpg"/>
-          </SliderStage>
-
           <SliderControls>
-            <SliderPrevious/>
-            <SliderPlayPause/>
-            <SliderNext/>
+            <SliderPrevious>Previous</SliderPrevious>
+            <SliderPlayPause>{this.state.isPlaying ? 'Pause' : 'Play'}</SliderPlayPause>
+            <SliderNext>Next</SliderNext>
           </SliderControls>
+
+          <SliderStage style={{height: 400}}>
+            <Slide src="./slides/hamburger.png"/>
+            <Slide src="./slides/chicken-nuggets.png"/>
+            <Slide src="./slides/mcmuffin.png"/>
+          </SliderStage>
         </Slider>
       </div>
     );
