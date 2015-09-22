@@ -119,13 +119,13 @@ class App extends React.Component {
         <div style={{ height: 400, overflowY: 'scroll', border: '1px solid' }}>
         {/* <PinnedToBottom style={{ height: 400, border: '1px solid' }}> */}
           <Tail lines={this.state.lines} n={5}>
-            {(truncatedLines) => (
+            {truncatedLines =>
               <ul>
                 {truncatedLines.map((line, index) => (
                   <li key={line}>{line}</li>
                 ))}
               </ul>
-            )}
+            }
           </Tail>
         {/* </PinnedToBottom> */}
         </div>
