@@ -1,13 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Exercise:
 //
-// Write a <ListView/> that only shows the elements in the view.
+// Write a <ListView> that only shows the elements in the view.
 ////////////////////////////////////////////////////////////////////////////////
 import React from 'react'
-import { render, findDOMNode } from 'react-dom'
-import PlaceholderText from './lib/PlaceholderText'
+import { render } from 'react-dom'
+import RainbowList from './lib/RainbowList'
 
-const { array, func, string, number, object, oneOfType } = React.PropTypes
+const { array, func, number } = React.PropTypes
 
 require('./styles')
 
@@ -16,15 +16,14 @@ class ListView extends React.Component {
   static propTypes = {
     items: array.isRequired,
     itemHeight: number.isRequired,
-    children: func.isRequired
+    availableHeight: number.isRequired,
+    renderItem: func.isRequired
   }
 
   constructor(props, context) {
     super(props, context)
     this.handleScroll = this.handleScroll.bind(this)
-    this.handleWindowResize = this.handleWindowResize.bind(this)
     this.state = {
-      availableHeight: 0,
       scrollTop: 0
     }
   }
@@ -35,110 +34,35 @@ class ListView extends React.Component {
     })
   }
 
-  handleWindowResize() {
-    this.setState({
-      availableHeight: findDOMNode(this).clientHeight
-    })
-  }
-
-  componentDidMount() {
-    window.addEventListener('resize', this.handleWindowResize)
-    this.handleWindowResize()
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowResize)
-  }
-
   render() {
-    let { children, items, itemHeight, style } = this.props
-    let { availableHeight, scrollTop } = this.state
+    let { items, itemHeight, availableHeight, renderItem, style } = this.props
+    let { scrollTop } = this.state
 
-    let scrollBottom = scrollTop + availableHeight
+    scrollTop = Math.max(scrollTop - 1000, 0)
+
+    let scrollBottom = scrollTop + availableHeight + 1000
     let startIndex = Math.floor(scrollTop / itemHeight)
     let endIndex = Math.ceil(scrollBottom / itemHeight)
+    let totalHeight = items.length * itemHeight
+
+    let itemStyle = { position: 'absolute', width: '100%', pointerEvents: 'none' }
 
     return (
       <div style={{ ...style, height: '100%', overflowY: 'scroll' }} onScroll={this.handleScroll}>
-        {children(items.slice(startIndex, endIndex))}
+        <ol style={{ position: 'relative', height: totalHeight, transform: 'translate3d(0,0,0)' }}>
+        {items.slice(startIndex, endIndex).map((item, index) =>
+          <li key={item.text} style={{ ...itemStyle, top: (startIndex + index) * itemHeight }}>
+          {renderItem(item)}
+          </li>
+        )}
+        </ol>
       </div>
     )
   }
  
 }
 
-import convertNumberToEnglish from './lib/convertNumberToEnglish'
-
-function computeHSLRainbowColor(n, total) {
-  return [ Math.round((n / total) * 360) , 1, 0.5 ]
-}
-
-class RainbowList extends React.Component {
-
-  static propTypes = {
-    length: number.isRequired
-  }
-
-  static defaultProps = {
-    length: 360
-  }
-
-  constructor(props, context) {
-    super(props, context)
-    this.state = {
-      items: []
-    }
-  }
-
-  computeItems(length) {
-    let items = []
-
-    for (let i = 0; i < length; ++i) {
-      items.push({
-        index: i,
-        text: convertNumberToEnglish(i),
-        backgroundColor: computeHSLRainbowColor(i, length)
-      })
-    }
-
-    this.setState({
-      items
-    })
-  }
-
-  componentWillMount() {
-    this.computeItems(this.props.length)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.length !== nextProps.length)
-      this.computeItems(nextProps.length)
-  }
-
-  render() {
-    let { items } = this.state
-
-    let itemHeight = 30
-    let totalHeight = items.length * itemHeight
-
-    return (
-      <ListView items={items} itemHeight={itemHeight}>
-      {(visibleItems) =>
-        <ol style={{ position: 'relative', height: totalHeight }}>
-        {visibleItems.map(item =>
-          <li
-            key={item.text}
-            style={{ position: 'absolute', width: '100%', top: item.index * itemHeight, pointerEvents: 'none' }}
-          >
-            <PlaceholderText {...item} height={itemHeight} />
-          </li> 
-        )}
-        </ol>
-      }
-      </ListView>
-    )
-  }
-
-}
-
-render(<RainbowList />, document.getElementById('app'))
+render(
+  <RainbowList ListView={ListView} length={500000} />,
+  document.getElementById('app')
+)
