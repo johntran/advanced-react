@@ -22,40 +22,39 @@ class ListView extends React.Component {
 
   constructor(props, context) {
     super(props, context)
-    this.handleScroll = this.handleScroll.bind(this)
+
     this.state = {
       scrollTop: 0
     }
   }
 
-  handleScroll(event) {
+  handleScroll(e) {
     this.setState({
-      scrollTop: event.target.scrollTop
+      scrollTop: e.target.scrollTop
     })
   }
 
   render() {
     let { items, itemHeight, availableHeight, renderItem, style } = this.props
-    let { scrollTop } = this.state
-
-    scrollTop = Math.max(scrollTop - 1000, 0)
-
-    let scrollBottom = scrollTop + availableHeight + 1000
-    let startIndex = Math.floor(scrollTop / itemHeight)
-    let endIndex = Math.ceil(scrollBottom / itemHeight)
     let totalHeight = items.length * itemHeight
 
-    let itemStyle = { position: 'absolute', width: '100%', pointerEvents: 'none' }
+    let { scrollTop } = this.state
+    let scrollBottom = scrollTop + availableHeight
+
+    let startIndex = Math.floor(scrollTop / itemHeight)
+    let endIndex = Math.ceil(scrollBottom / itemHeight)
 
     return (
-      <div style={{ ...style, height: '100%', overflowY: 'scroll' }} onScroll={this.handleScroll}>
-        <ol style={{ position: 'relative', height: totalHeight, transform: 'translate3d(0,0,0)' }}>
-        {items.slice(startIndex, endIndex).map((item, index) =>
-          <li key={item.text} style={{ ...itemStyle, top: (startIndex + index) * itemHeight }}>
-          {renderItem(item)}
-          </li>
-        )}
-        </ol>
+      <div style={{ ...style, height: '100%', overflowY: 'scroll' }} onScroll={(e) => this.handleScroll(e)}>
+        <div style={{ height: totalHeight }}>
+          <ol style={{ paddingTop: (startIndex * itemHeight) }}>
+          {items.slice(startIndex, endIndex).map((item, index) =>
+            <li key={item.text} style={{ pointerEvents: 'none' }}>
+            {renderItem(item)}
+            </li>
+          )}
+          </ol>
+        </div>
       </div>
     )
   }
