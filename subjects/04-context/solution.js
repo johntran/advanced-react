@@ -78,7 +78,7 @@ var App = React.createClass({
   render () {
     return (
       <div>
-        <h1>This isn't even my final <code>&lt;Form/&gt;</code>!</h1>
+        <h1>This isn’t even my final <code>&lt;Form/&gt;</code>!</h1>
 
         <Form onSubmit={this.handleSubmit}>
           <p>
